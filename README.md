@@ -1,4 +1,4 @@
-# TheGrandLibrary
+# The Grand Library
 
 # English
 This is a collection of source code snippets meant to solve problems and inspire better solutions.
