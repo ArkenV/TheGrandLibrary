@@ -71,14 +71,14 @@ passwd
 # PARA SISTEMAS UEFI
 pacman -S grub efibootmgr
 mkdir /boot/efi
-mount /dev/sda1 /boot/efi
+mount /dev/EFI /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # FOR OTHER SYSTEMS
 # PARA OTROS SISTEMAS
 pacman -S grub
-grub-install /dev/DISKDISCO
+grub-install /dev/EFI
 grub-mkconfig -o /boot/grub/grub.cfg
 
 pacman -S sudo
