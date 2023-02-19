@@ -15,6 +15,16 @@ loadkeys FILEARCHIVO
 # Verifique que esté en el modo de arranque que desea usar. Si esto muestra el directorio sin errores, está en UEFI.
 ls /sys/firmware/efi/efivars
 
+# You must have internet to install. For a fast installation, connect an ethernet cable and skip the next seven lines. Optionally, enable internet after installation at the bottom.
+# Debe tener internet para instalar. Para una instalación rápida, conecte un cable ethernet y omita las siguientes siete líneas. Opcionalmente, habilite Internet después de la instalación en la parte inferior.
+ip link
+iwctl
+device list
+station DEVICEAPARATO scan
+station DEVICEAPARATO get-networks
+station DEVICEAPARATO connect SSID
+quit
+
 timedatectl status
 timedatectl list-timezones
 timedatectl set-timezone VALUEVALOR
@@ -41,7 +51,7 @@ swapon /dev/SWAP
 
 # Optionally, include additional packages and groups to install
 # Opcionalmente, incluya paquetes y grupos adicionales para instalar
-pacstrap -K /mnt base linux linux-firmware
+pacstrap -K /mnt base linux linux-firmware # base-devel iwd dhcpcd nano acpi
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
@@ -93,3 +103,31 @@ EDITOR=nano visudo
 
 exit
 reboot
+
+# If you did not install additional packages, you'll need to manually enable internet after rebooting, starting with ethernet.
+# Si no instaló paquetes adicionales, deberá habilitar el internet manualmente después de reiniciar, empezando con ethernet.
+networkctl list
+nano /etc/systemd/network/20-wired.network
+# [Match]
+# Name=DEVICEAPARATO
+# [Network]
+# DHCP=yes
+sudo systemctl restart systemd-networked.service
+
+# Stop here if you don't want wifi.
+# Detente aquí si no quieres wifi.
+sudo pacman -S iwd
+sudo systemctl enable iwd.service
+sudo systemctl start iwd.service
+iwctl
+device list
+station DEVICEAPARATO scan
+station DEVICEAPARATO get-networks
+station DEVICEAPARATO connect SSID
+quit
+sudo nano /etc/iwd/main.conf
+# [General]
+# EnableNetworkConfiguration]=true
+sudo pacman -S dhcpcd
+sudo systemctl enable dhcpcd
+sudo systemctl start dhcpcd
