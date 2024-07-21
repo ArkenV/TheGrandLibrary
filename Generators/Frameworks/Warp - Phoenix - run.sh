@@ -1,0 +1,2 @@
+clear
+ng serve -o

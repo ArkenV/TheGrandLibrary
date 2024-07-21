@@ -1,8 +1,8 @@
-# Shebang line missing as this is not intended to be an executable script.
+# This is not intended to be an executable script.
 # Rather, this is a condensed straightforward version of the Arch wiki for a typical installation.
 # You will need to verify every step does contribute to your end goals.
 
-# Falta la línea Shebang ya que no pretende ser un script ejecutable.
+# Esto no pretende ser un script ejecutable.
 # Más bien, esta es una versión sencilla condensada del Arch wiki para una instalación típica.
 # Deberá verificar que cada paso contribuya a sus objetivos finales.
 
