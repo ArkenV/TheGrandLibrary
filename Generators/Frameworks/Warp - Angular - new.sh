@@ -1,13 +1,14 @@
 git clone https://github.com/ACCOUNT/{{PROJECT}}.git
 cd {{PROJECT}}
-ng n {{PROJECT}} --new-project-root=. --routing -g --ssr --style=scss
+rm README.md
+ng n {{PROJECT}} --directory=. --routing -g --ssr --style=scss
 ng add @angular/pwa --skip-confirmation
 ng add @angular/elements --skip-confirmation
 ng add @ngrx/store --skip-confirmation
 #ng add @oktadev/schematics --skip-confirmation
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init
-echo "/** @type {import('tailwindcss').Config} */
+echo -n "/** @type {import('tailwindcss').Config} */
 module.exports =
 {
   content:
@@ -22,10 +23,10 @@ module.exports =
 
   plugins: []
 }" > tailwind.config.js
-echo "@tailwind base;
+echo -n "@tailwind base;
 @tailwind utilities;
 @tailwind components;" > ./src/styles.scss
-echo "root = true
+echo -n "root = true
 
 [*]
 charset = utf-8
